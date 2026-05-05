@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lovely Web Studio | Websites · SEO · AI Automation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --card: #13131c;
+      --accent: #7c5cfc;
+      --accent2: #a78bfa;
+      --green: #22d3a5;
+      --text: #f0eeff;
+      --muted: #8b8aab;
+      --border: rgba(124,92,252,0.18);
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 5%;
+      background: rgba(10,10,15,0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent2); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 5% 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,92,252,0.18) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+    .hero-glow2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(34,211,165,0.1) 0%, transparent 70%);
+      bottom: 0; left: 10%;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(34,211,165,0.1);
+      border: 1px solid rgba(34,211,165,0.3);
+      color: var(--green);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .badge::before { content: '●'; font-size: 0.6rem; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent2); }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 2.2rem;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.85rem 1.8rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(124,92,252,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(124,92,252,0.5); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      padding: 0.85rem 1.8rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent2); background: rgba(124,92,252,0.07); }
+
+    .hero-image-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-image-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,92,252,0.2) 0%, transparent 70%);
+    }
+    .hero-img {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent2);
+    }
+    .stat-label { font-size: 0.82rem; color: var(--muted); margin-top: 0.1rem; }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 6rem 5%; position: relative; z-index: 1; }
+    .section-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--accent2);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .section-sub { color: var(--muted); max-width: 520px; line-height: 1.7; }
+    .center { text-align: center; }
+    .center .section-sub { margin: 0 auto; }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--green));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .service-card:hover { border-color: rgba(124,92,252,0.4); transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .service-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .service-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.65; }
+
+    /* ── PROCESS ── */
+    .process { background: var(--bg2); }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+    .process-step {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      position: relative;
+    }
+    .step-num {
+      font-family: var(--font-head);
+      font-size: 3rem;
+      font-weight: 800;
+      color: rgba(124,92,252,0.15);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .process-step h3 {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .process-step p { color: var(--muted); font-size: 0.88rem; }
+
+    /* ── PORTFOLIO ── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .portfolio-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .portfolio-card:hover { transform: translateY(-4px); border-color: rgba(124,92,252,0.4); }
+
+    .portfolio-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .portfolio-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .portfolio-info { padding: 1.5rem; }
+    .portfolio-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.65rem;
+      border-radius: 100px;
+      background: rgba(124,92,252,0.12);
+      color: var(--accent2);
+      border: 1px solid rgba(124,92,252,0.2);
+    }
+    .portfolio-info h3 {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .portfolio-info p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+    .portfolio-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent2);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 1rem;
+      transition: gap 0.2s;
+    }
+    .portfolio-link:hover { gap: 0.7rem; }
+
+    /* ── PRICING ── */
+    .pricing { background: var(--bg2); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      align-items: start;
+    }
+    .pricing-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.2rem;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); }
+    .pricing-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(124,92,252,0.08), var(--card));
+    }
+    .featured-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 1rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .plan-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .plan-title {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+    .plan-price {
+      font-family: var(--font-head);
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--accent2);
+      margin-bottom: 0.3rem;
+    }
+    .plan-price span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .plan-desc { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
+    .plan-features { list-style: none; margin-bottom: 1.8rem; display: flex; flex-direction: column; gap: 0.65rem; }
+    .plan-features li { font-size: 0.88rem; color: var(--muted); display: flex; align-items: flex-start; gap: 0.6rem; }
+    .plan-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 0.1rem; }
+    .plan-btn {
+      display: block;
+      text-align: center;
+      padding: 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .plan-btn.solid {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(124,92,252,0.3);
+    }
+    .plan-btn.solid:hover { opacity: 0.88; }
+    .plan-btn.outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .plan-btn.outline:hover { border-color: var(--accent2); background: rgba(124,92,252,0.07); }
+
+    /* Currency toggle */
+    .cur-btn {
+      padding: 0.4rem 1.2rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: var(--font-body);
+      transition: 0.2s;
+    }
+    .cur-btn.active-cur {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .plan-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .plan-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 1.2rem;
+    }
+    .plan-price small {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+    .plan-header .plan-price {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--accent2);
+      white-space: nowrap;
+      margin-bottom: 0;
+    }
+
+    /* ── TESTIMONIAL ── */
+    .testimonial-wrap {
+      max-width: 800px;
+      margin: 3.5rem auto 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      position: relative;
+    }
+    .testimonial-wrap::before {
+      content: '"';
+      position: absolute;
+      top: 1rem; left: 2rem;
+      font-family: var(--font-head);
+      font-size: 6rem;
+      color: rgba(124,92,252,0.12);
+      line-height: 1;
+    }
+    .testimonial-text {
+      font-size: 1.1rem;
+      line-height: 1.75;
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+    .author-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--green));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .author-name { font-weight: 600; font-size: 0.95rem; }
+    .author-title { font-size: 0.82rem; color: var(--muted); }
+    .stars { color: #fbbf24; font-size: 0.85rem; margin-bottom: 0.2rem; }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .team-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .team-card:hover { transform: translateY(-3px); border-color: rgba(124,92,252,0.3); }
+    .team-avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #5b21b6);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.3rem;
+      margin: 0 auto 1rem;
+    }
+    .team-card h3 { font-family: var(--font-head); font-size: 0.98rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .team-card p { color: var(--muted); font-size: 0.82rem; }
+
+    /* ── CONTACT ── */
+    .contact { background: var(--bg2); }
+    .contact-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .contact-left h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+    .contact-left p { color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--accent2); }
+    .contact-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: rgba(124,92,252,0.12);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .cta-big {
+      background: linear-gradient(135deg, var(--accent), #5b21b6);
+      color: #fff;
+      padding: 1.4rem 2rem;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      display: block;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 8px 32px rgba(124,92,252,0.35);
+    }
+    .cta-big:hover { opacity: 0.9; transform: translateY(-2px); }
+    .cta-sub { color: var(--muted); font-size: 0.82rem; text-align: center; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 3rem 5%;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .footer-logo span { color: var(--accent2); }
+    footer p { color: var(--muted); font-size: 0.82rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ── MOBILE MENU ── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: rgba(10,10,15,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 5%;
+      flex-direction: column;
+      gap: 0;
+      z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+      display: block;
+    }
+    .mobile-menu .mob-cta {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+      padding: 0.85rem;
+      border-radius: 10px;
+      font-weight: 600;
+      border-bottom: none;
+      margin-top: 1rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE BREAKPOINTS
+    ══════════════════════════════════════ */
+
+    /* ── TABLET LARGE (≤1100px) ── */
+    @media (max-width: 1100px) {
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .team-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ── TABLET (≤900px) ── */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2.5rem;
+      }
+      .hero-image-wrap { order: -1; }
+      .hero-img { width: 220px; height: 220px; }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .hero-btns { justify-content: center; }
+      .hero-stats { justify-content: center; }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ── MOBILE (≤768px) ── */
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      nav { padding: 1rem 5%; }
+
+      .hero { padding: 6rem 5% 4rem; min-height: auto; }
+      .hero h1 { font-size: clamp(1.9rem, 7vw, 2.6rem); }
+      .hero p { font-size: 0.97rem; }
+      .hero-btns { flex-direction: column; align-items: center; }
+      .hero-btns a { width: 100%; max-width: 300px; text-align: center; }
+      .hero-img { width: 180px; height: 180px; }
+      .hero-stats { gap: 1.5rem; padding-top: 1.5rem; margin-top: 2rem; }
+      .stat-num { font-size: 1.5rem; }
+
+      section { padding: 4rem 5%; }
+      .section-title { font-size: clamp(1.5rem, 5vw, 2rem); }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .service-card { padding: 1.5rem; }
+
+      .process-steps {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .process-step { padding: 1.2rem 1rem; }
+      .step-num { font-size: 2.2rem; }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .testimonial-wrap { padding: 1.8rem 1.5rem; }
+      .testimonial-text { font-size: 0.95rem; }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+      .pricing-card { padding: 1.8rem 1.5rem; }
+      .plan-header { gap: 0.5rem; }
+
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .contact-left h2 { font-size: 1.6rem; }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+      }
+      .footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+    }
+
+    /* ── SMALL MOBILE (≤480px) ── */
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.85rem; }
+      .hero-img { width: 150px; height: 150px; }
+      .hero-stats { gap: 1rem; }
+      .stat-num { font-size: 1.3rem; }
+
+      .process-steps { grid-template-columns: 1fr; }
+
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .pricing-card { padding: 1.5rem 1.2rem; }
+      .plan-header { flex-direction: column; gap: 0.3rem; }
+      .plan-header .plan-price { font-size: 1.4rem; }
+
+      .testimonial-wrap { padding: 1.5rem 1.2rem; }
+      .testimonial-text { font-size: 0.9rem; }
+
+      .cta-big { padding: 1.2rem 1.5rem; font-size: 0.95rem; }
+
+      section { padding: 3rem 5%; }
+
+      .cur-btn { padding: 0.35rem 0.9rem; font-size: 0.78rem; }
+    }
+
+    /* ── EXTRA SMALL (≤360px) ── */
+    @media (max-width: 360px) {
+      .team-grid { grid-template-columns: 1fr; }
+      nav { padding: 0.9rem 4%; }
+      .hero { padding: 5.5rem 4% 3rem; }
+      section { padding: 2.5rem 4%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Lovely<span>.</span>Studio</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://wa.me/919259270578?text=Hi,%20I%20saw%20your%20portfolio" class="nav-cta" target="_blank">Let's Talk</a>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#work" onclick="closeMenu()">Work</a>
+  <a href="#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="#team" onclick="closeMenu()">Team</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="https://wa.me/919259270578?text=Hi,%20I%20saw%20your%20portfolio" class="mob-cta" target="_blank">Let's Talk</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-left fade-up">
+      <div class="badge">Available for New Projects</div>
+      <h1>We Handle<br>the Digital.<br><em>You Run the Business.</em></h1>
+      <p>Lovely Web Studio builds high-performance websites, automates your WhatsApp leads, and gets you found on Google — so you stop losing clients to competitors who just showed up first.</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/919259270578?text=Hi,%20I%20saw%20your%20portfolio%20and%20want%20a%20demo." class="btn-primary" target="_blank">Book a Free Demo</a>
+        <a href="#work" class="btn-ghost">See Our Work</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div>
+          <div class="stat-num">7–14</div>
+          <div class="stat-label">Day Delivery</div>
+        </div>
+        <div>
+          <div class="stat-num">5★</div>
+          <div class="stat-label">Avg. Rating</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-image-wrap fade-up" style="animation-delay:0.2s">
+      <img src="WhatsApp Image 2026-03-22 at 9.47.30 AM.jpeg" alt="Lovely Tyagi" class="hero-img" />
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="center fade-up">
+    <div class="section-tag">What We Offer</div>
+    <h2 class="section-title">Everything Your Business Needs Online</h2>
+    <p class="section-sub">We work with clinics, local businesses, and growing brands who are done being invisible.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <span class="service-icon">🌐</span>
+      <h3>Custom Websites</h3>
+      <p>Fast, responsive sites built with MERN stack or WordPress that establish your authority, load in under 2 seconds, and convert visitors into customers.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-icon">🤖</span>
+      <h3>AI WhatsApp Automation</h3>
+      <p>Smart WhatsApp and email workflows that instantly follow up with prospects 24/7 — turning cold leads into ready-to-buy clients without lifting a finger.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-icon">📈</span>
+      <h3>SEO & Google Ranking</h3>
+      <p>Full on-page SEO setup, Google Business profile optimization, and content strategy to get your business found by the right people at the right time.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-icon">🏥</span>
+      <h3>Clinic & Doctor Websites</h3>
+      <p>Appointment booking systems, patient forms, Google Maps integration, and WhatsApp CTAs — built specifically for medical practices and clinics.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-icon">🛍️</span>
+      <h3>E-Commerce Stores</h3>
+      <p>Full online store setup with payment gateways, product management, and conversion-optimized layouts that sell for you around the clock.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-icon">🛡️</span>
+      <h3>Website Maintenance</h3>
+      <p>Monthly updates, bug fixes, speed monitoring, security patches, and priority WhatsApp support — so your site never goes down when it matters most.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="center fade-up">
+    <div class="section-tag">How It Works</div>
+    <h2 class="section-title">From Idea to Live in 7–14 Days</h2>
+  </div>
+  <div class="process-steps">
+    <div class="process-step fade-up">
+      <div class="step-num">01</div>
+      <h3>Discovery Call</h3>
+      <p>We understand your goals, audience, and what's currently not working for your business online.</p>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">02</div>
+      <h3>Design & Build</h3>
+      <p>We design and develop your site with a clear focus on speed, conversion, and your brand identity.</p>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">03</div>
+      <h3>Review & Launch</h3>
+      <p>You review, request changes, and once you approve — we go live. No surprises, no delays.</p>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">04</div>
+      <h3>Post-Launch Support</h3>
+      <p>3 months free support included in all plans. We're here even after your site goes live.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="work">
+  <div class="fade-up">
+    <div class="section-tag">Portfolio</div>
+    <h2 class="section-title">Selected Works</h2>
+    <p class="section-sub">Real projects. Real clients. Real results.</p>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-card fade-up">
+      <div class="portfolio-img">
+        <img src="wanderlust.png" alt="Wanderlust Travel App" onerror="this.parentElement.innerHTML='<span>Wanderlust Travel App</span>'" />
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tags">
+          <span class="tag">MERN Stack</span>
+          <span class="tag">Full Stack</span>
+        </div>
+        <h3>Wanderlust Travel App</h3>
+        <p>Accommodation booking platform with secure auth, real-time geolocation via MapTiler, and Cloudinary image management.</p>
+        <a href="#" class="portfolio-link">View Code →</a>
+      </div>
+    </div>
+    <div class="portfolio-card fade-up">
+      <div class="portfolio-img">
+        <img src="salon.png" alt="Glow Salon & Spa" onerror="this.parentElement.innerHTML='<span>Glow Salon &amp; Spa</span>'" />
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tags">
+          <span class="tag">Business Website</span>
+          <span class="tag">Local SEO</span>
+        </div>
+        <h3>Glow Salon & Spa</h3>
+        <p>High-conversion landing page for a local salon. Mobile-first, WhatsApp CTA, and a service menu that drives real bookings.</p>
+        <a href="" class="portfolio-link"></a>
+      </div>
+    </div>
+    <div class="portfolio-card fade-up">
+      <div class="portfolio-img">
+        <img src="Screenshot (1352).png" alt="Dr Sarish Sharma" onerror="this.parentElement.innerHTML='<span>Dr Sarish Sharma</span>'" />
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tags">
+          <span class="tag">Dr Sarish Sharma</span>
+          <span class="tag">Medical</span>
+        </div>
+        <h3>Dr Sarish Sharma</h3>
+        <p>We build a clinic website which is currently helping Dr sarish to get more patient through his online clinic presence.</p>
+        <a href="https://httpsdrsarishsharmaortho.com/" class="portfolio-link">Live Demo →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section>
+  <div class="center fade-up">
+    <div class="section-tag">Client Reviews</div>
+    <h2 class="section-title">What Clients Say</h2>
+  </div>
+  <div class="testimonial-wrap fade-up">
+    <div class="stars">★★★★★</div>
+    <p class="testimonial-text">It was a great experience. The team is highly professional and handed over the project on timeline without any delays. Highly recommended.</p>
+    <div class="testimonial-author">
+      <div class="author-avatar">DS</div>
+      <div>
+        <div class="author-name">Dr. Sarish Sharma</div>
+        <div class="author-title">Clinic Owner · Web Development Client</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="center fade-up">
+    <div class="section-tag">Pricing</div>
+    <h2 class="section-title">Transparent Pricing</h2>
+    <p class="section-sub">No surprises. Pick your currency, choose your plan.</p>
+  </div>
+
+  <!-- Currency Toggle -->
+  <div style="display:flex;justify-content:center;gap:0.4rem;margin-top:2rem;margin-bottom:3rem;flex-wrap:wrap;">
+    <button onclick="setCurrency('inr')" id="btn-inr" class="cur-btn active-cur">₹ India</button>
+    <button onclick="setCurrency('gbp')" id="btn-gbp" class="cur-btn">£ UK</button>
+    <button onclick="setCurrency('usd')" id="btn-usd" class="cur-btn">$ US</button>
+  </div>
+
+  <div class="pricing-grid">
+
+    <!-- Starter -->
+    <div class="pricing-card fade-up">
+      <div class="plan-header">
+        <div>
+          <div class="plan-name">Starter</div>
+          <div class="plan-title">Basic Website</div>
+        </div>
+        <div class="plan-price" id="price-starter">₹8,000</div>
+      </div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>5–7 pages, mobile responsive</li>
+        <li>Contact form included</li>
+        <li>Basic on-page SEO</li>
+        <li>Blog setup</li>
+        <li>Content writing</li>
+      </ul>
+      <a href="https://wa.me/919259270578?text=I%20am%20interested%20in%20the%20Starter%20Package" class="plan-btn outline" target="_blank">Get Started</a>
+    </div>
+
+    <!-- Professional -->
+    <div class="pricing-card featured fade-up">
+      <div class="featured-badge">⭐ Most Popular</div>
+      <div class="plan-header">
+        <div>
+          <div class="plan-name">Professional</div>
+          <div class="plan-title">Clinics & Businesses</div>
+        </div>
+        <div class="plan-price" id="price-pro">₹18,000</div>
+      </div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>12–15 pages, mobile responsive</li>
+        <li>SEO-optimised content</li>
+        <li>Blog section (5 posts)</li>
+        <li>Appointment booking form</li>
+        <li>Google Maps integration</li>
+        <li>WhatsApp button</li>
+      </ul>
+      <a href="https://wa.me/919259270578?text=I%20am%20interested%20in%20the%20Professional%20Package" class="plan-btn solid" target="_blank">Choose Professional</a>
+    </div>
+
+    <!-- Premium -->
+    <div class="pricing-card fade-up">
+      <div class="plan-header">
+        <div>
+          <div class="plan-name">Premium</div>
+          <div class="plan-title">Complete Package</div>
+        </div>
+        <div class="plan-price" id="price-premium">₹33,000</div>
+      </div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>18–22 pages, fully coded</li>
+        <li>Full SEO setup</li>
+        <li>10 blog posts written</li>
+        <li>Google Business setup</li>
+        <li>Speed optimised (90+ score)</li>
+        <li>3 months free support</li>
+        <li>Social media pages setup</li>
+      </ul>
+      <a href="https://wa.me/919259270578?text=I%20am%20interested%20in%20the%20Premium%20Package" class="plan-btn outline" target="_blank">Go Premium</a>
+    </div>
+
+    <!-- Maintenance -->
+    <div class="pricing-card fade-up">
+      <div class="plan-header">
+        <div>
+          <div class="plan-name">Maintenance</div>
+          <div class="plan-title">Keep It Running</div>
+        </div>
+        <div class="plan-price" id="price-maint">₹1,500<small>/mo</small></div>
+      </div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Monthly content updates</li>
+        <li>Bug fixes & tweaks</li>
+        <li>Uptime & speed monitoring</li>
+        <li>Security patches</li>
+        <li>Priority WhatsApp support</li>
+      </ul>
+      <a href="https://wa.me/919259270578?text=I%20need%20website%20maintenance" class="plan-btn outline" target="_blank">Subscribe</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="center fade-up">
+    <div class="section-tag">The Team</div>
+    <h2 class="section-title">Lovely Web Studio</h2>
+    <p class="section-sub">A tight-knit team of builders, writers, and growth specialists.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card fade-up">
+      <div class="team-avatar">LT</div>
+      <h3>Lovely Tyagi</h3>
+      <p>Founder · Full-Stack Dev & SEO Lead</p>
+    </div>
+    <div class="team-card fade-up">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#22d3a5,#0d9488)">KS</div>
+      <h3>Kashish Sharma</h3>
+      <p>SEO Analyst</p>
+    </div>
+    <div class="team-card fade-up">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#f472b6,#be185d)">SN</div>
+      <h3>Soniya Nirjher</h3>
+      <p>Content Writer</p>
+    </div>
+    <div class="team-card fade-up">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#fb923c,#c2410c)">RJ</div>
+      <h3>Rohit Jadhav</h3>
+      <p>Developer</p>
+    </div>
+    <div class="team-card fade-up">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#60a5fa,#1d4ed8)">MK</div>
+      <h3>Mukul Kumar</h3>
+      <p>AI Automation Expert</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left fade-up">
+      <div class="section-tag">Let's Work Together</div>
+      <h2>Ready to Grow Your Business Online?</h2>
+      <p>Currently available for new projects. Let's talk about your website today — no commitment needed.</p>
+      <div class="contact-links">
+        <a href="https://wa.me/919259270578?text=Hi,%20I%20want%20to%20discuss%20a%20project" class="contact-link" target="_blank">
+          <span class="contact-icon">📱</span>
+          +91 9259270578
+        </a>
+        <a href="mailto:lovelyofficial285@gmail.com?subject=Project%20Inquiry" class="contact-link">
+          <span class="contact-icon">✉️</span>
+          lovelyofficial285@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/lovely-tyagi-2290a7315/" class="contact-link" target="_blank">
+          <span class="contact-icon">💼</span>
+          LinkedIn Profile
+        </a>
+      </div>
+    </div>
+    <div class="contact-right fade-up">
+      <a href="https://wa.me/919259270578?text=Hi,%20I%20want%20to%20discuss%20a%20project" class="cta-big" target="_blank">
+        💬 WhatsApp Me Now
+      </a>
+      <p class="cta-sub">Typically reply within 1 hour · Free consultation call</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lovely<span>.</span>Studio</div>
+  <p style="color:var(--muted);font-size:0.82rem;">© 2026 Lovely Web Studio. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Hamburger menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // Close menu on outside click
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileMenu');
+    const hamburger = document.getElementById('hamburger');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+
+  // Intersection Observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Currency switcher
+  const prices = {
+    inr: { starter:'₹8,000',  pro:'₹18,000', premium:'₹33,000', maint:'₹1,500<small>/mo</small>' },
+    gbp: { starter:'£399',    pro:'£699–£800', premium:'£999–£1,500', maint:'£40<small>/mo</small>' },
+    usd: { starter:'$490',    pro:'$950–$1,100', premium:'$1,250–$1,900', maint:'$50<small>/mo</small>' }
+  };
+
+  function setCurrency(c) {
+    document.getElementById('price-starter').innerHTML  = prices[c].starter;
+    document.getElementById('price-pro').innerHTML      = prices[c].pro;
+    document.getElementById('price-premium').innerHTML  = prices[c].premium;
+    document.getElementById('price-maint').innerHTML    = prices[c].maint;
+    ['inr','gbp','usd'].forEach(x => {
+      document.getElementById('btn-'+x).classList.toggle('active-cur', x === c);
+    });
+  }
+</script>
+</body>
+</html>
